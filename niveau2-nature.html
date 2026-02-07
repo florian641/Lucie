@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Niveau 2 — La nature</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>Niveau 2 — Comprendre ❤️</h1>
+
+    <p id="question"></p>
+
+    <input id="answer" placeholder="Ta réponse…" />
+    <button onclick="check()">Valider</button>
+
+    <div class="symbols" id="symbols"></div>
+
+    <div
+      id="spa"
+      class="clickable"
+      style="display:none"
+      onclick="location.href='niveau3-choix.html'"
+    >
+      💆‍♀️ SPA 💆‍♂️
+      <p style="font-size:0.8rem;">Clique pour continuer</p>
+    </div>
+  </div>
+
+<script>
+const questions = [
+  { q: "Qu’est-ce que je veux que tu fasses le 6 mai ?", a: "rien" },
+  { q: "Quelle sensation revient le plus dans mes mots ?", a: "calme" },
+  { q: "Qu’est-ce que tu mérites ce jour-là ?", a: "lâcher" },
+  { q: "Ce moment, je l’ai pensé pour qui ?", a: "toi" }
+];
+
+const emojis = ["💧", "🕯️", "🧘", "🛏️"];
+let index = 0;
+
+document.getElementById("question").innerText = questions[0].q;
+
+function check() {
+  const value = document.getElementById("answer").value.toLowerCase();
+  if (value.includes(questions[index].a)) {
+    document.getElementById("symbols").innerText += emojis[index] + " ";
+    index++;
+    document.getElementById("answer").value = "";
+
+    if (index < questions.length) {
+      document.getElementById("question").innerText = questions[index].q;
+    } else {
+      document.getElementById("question").innerText =
+        "Ce n’est pas un lieu. C’est un état.";
+      document.getElementById("spa").style.display = "block";
+    }
+  } else {
+    alert("Je sais que tu sais… ❤️");
+  }
+}
+</script>
+</body>
+</html>

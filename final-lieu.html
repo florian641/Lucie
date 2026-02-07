@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le 6 mai ❤️</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>Bienvenue dans ta parenthèse ❤️</h1>
+
+    <img
+      src="assets/carte-lieu.jpg"
+      alt="Lieu"
+      style="width:100%;border-radius:16px;margin:20px 0;"
+    />
+
+    <p>
+      📍 <strong>Rendez-vous :</strong> 6 mai<br>
+      🕒 <strong>Heure :</strong> 14h00
+    </p>
+
+    <p>
+      À prévoir :
+      <br>🩱 Maillot de bain
+      <br>🧖‍♀️ Serviette / bonnet
+      <br>👗 Une tenue pour la soirée
+      <br>❤️ Juste toi
+    </p>
+
+    <p style="margin-top:24px;">
+      Je t’aime.<br>
+      Tiens-toi prête.
+    </p>
+
+    <p id="countdown" style="margin-top:16px;font-style:italic;"></p>
+  </div>
+
+<script>
+const target = new Date("2026-05-06T14:00:00").getTime();
+
+setInterval(() => {
+  const now = new Date().getTime();
+  const diff = target - now;
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  document.getElementById("countdown").innerText =
+    `Encore ${days} jours…`;
+}, 1000);
+</script>
+</body>
+</html>

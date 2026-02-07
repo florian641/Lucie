@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Niveau 3 — À toi de choisir</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>Niveau 3 — Jusqu’où veux-tu savoir ? ❤️</h1>
+
+    <p>
+      Tu peux choisir…<br>
+      ou simplement me faire confiance.
+    </p>
+
+    <button onclick="reveal('repas')">🍽️ Le repas</button>
+    <button onclick="reveal('spectacle')">🎭 Le spectacle</button>
+    <button onclick="reveal('surprise')">🎁 Garder la surprise</button>
+
+    <p id="text" style="margin-top:20px;"></p>
+
+    <div id="next" style="display:none;">
+      <button onclick="location.href='final-lieu.html'">
+        👉 Pour la suite
+      </button>
+    </div>
+  </div>
+
+<script>
+function reveal(choice) {
+  if (choice === "repas") {
+    document.getElementById("text").innerText =
+      "Un dîner où on prendra notre temps. Où on savourera, ensemble.";
+  }
+  if (choice === "spectacle") {
+    document.getElementById("text").innerText =
+      "Un moment pour rire. Parce que ton rire est ce que je préfère.";
+  }
+  if (choice === "surprise") {
+    document.getElementById("text").innerText =
+      "Alors ferme les yeux… je m’occupe de tout ❤️";
+  }
+
+  document.getElementById("next").style.display = "block";
+}
+</script>
+</body>
+</html>
