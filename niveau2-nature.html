@@ -8,7 +8,7 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       color: white;
       min-height: 100vh;
@@ -33,10 +33,9 @@
       margin-bottom: 10px;
     }
 
-    p {
-      font-size: 1rem;
-      margin-bottom: 20px;
-      opacity: 0.9;
+    #question {
+      font-size: 1.05rem;
+      margin-bottom: 18px;
     }
 
     .choices {
@@ -67,7 +66,7 @@
       min-height: 48px;
     }
 
-    #nextLevel {
+    #nextBtn {
       display: none;
       margin-top: 20px;
       background: #ffb6c1;
@@ -79,59 +78,146 @@
       cursor: pointer;
       font-weight: bold;
     }
-
-    #nextLevel:hover {
-      background: #ffd1dc;
-    }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h1>Niveau 2 — Reponds à ca avant 🌿</h1>
-    <p>
-      Une seule question.<br>
-      Et pourtant… plusieurs vérités 💛
-    </p>
+    <h1>Niveau 2 — Comprendre 🌿</h1>
 
-    <p><strong>Qu’est-ce que tu fais qui me fait fondre à chaque fois ?</strong></p>
+    <div id="question"></div>
 
-    <div class="choices">
-      <button class="choice" onclick="answer(0)">A — Ton sourire 😄</button>
-      <button class="choice" onclick="answer(1)">B — Tes yeux ✨</button>
-      <button class="choice" onclick="answer(2)">C — Ta voix 🎧</button>
-      <button class="choice" onclick="answer(3)">D — Tes émotions 💞</button>
-    </div>
+    <div class="choices" id="choices"></div>
 
     <div id="message"></div>
 
-    <button id="nextLevel" onclick="goNext()">Continuer l’aventure 🌿</button>
+    <button id="nextBtn" onclick="nextQuestion()">Continuer l’aventure 🌿</button>
   </div>
 
   <script>
-    const messages = [
-      "Ton sourire… il me désarme à chaque fois 😄💛",
-      "Tes yeux racontent tout ce que tu ressens ✨👀",
-      "Ta voix me rassure, même à distance 🎧🤍",
-      "Tes émotions, c’est ce qui te rend unique 💞🥹"
+    const questions = [
+      {
+        question: "Qu’est-ce que tu fais qui me fait fondre à chaque fois ?",
+        choices: [
+          "Ton sourire 😄",
+          "Tes yeux ✨",
+          "Ta voix 🎧",
+          "Tes émotions 💞"
+        ],
+        messages: [
+          "Ton sourire… il me désarme à chaque fois 😄💛",
+          "Tes yeux racontent tout ce que tu ressens ✨👀",
+          "Ta voix me rassure, même à distance 🎧🤍",
+          "Tes émotions, c’est ce qui te rend unique 💞🥹"
+        ]
+      },
+      {
+        question: "Quel est notre premier vrai moment ‘nous’ ?",
+        choices: [
+          "Notre premier appel 📞",
+          "Notre première visio 🎥",
+          "Nos messages tard le soir 🌙",
+          "Le jour où tout a changé 💫"
+        ],
+        messages: [
+          "Ce premier appel… je m’en souviens parfaitement 📞💛",
+          "Cette visio… j’avais le sourire tout le temps 🎥😌",
+          "Ces messages tard… nos débuts à nous 🌙🤍",
+          "Ce jour-là… plus rien n’était pareil 💫"
+        ]
+      },
+      {
+        question: "Qu’est-ce que la distance ne nous a jamais enlevé ?",
+        choices: [
+          "Notre complicité 🤝",
+          "Notre sincérité 💬",
+          "Notre envie 💖",
+          "Notre lien 💫"
+        ],
+        messages: [
+          "Notre complicité est restée intacte 🤝✨",
+          "Toujours honnêtes, toujours vrais 💬🤍",
+          "L’envie n’a jamais disparu 💖🔥",
+          "Ce lien… rien ne peut l’effacer 💫🥹"
+        ]
+      },
+      {
+        question: "Quand tu penses à nous, tu ressens surtout…",
+        choices: [
+          "De la joie 😄",
+          "De la tendresse 🥰",
+          "De la sérénité 🌿",
+          "Un peu de tout 💞"
+        ],
+        messages: [
+          "Ta joie, je la partage 😄💛",
+          "Ta tendresse me touche profondément 🥰🤍",
+          "Cette sérénité, c’est précieux 🌿✨",
+          "Un mélange parfait… comme nous 💞"
+        ]
+      },
+      {
+        question: "Ce que j’ai le plus envie de te faire vivre ?",
+        choices: [
+          "Un moment hors du temps ⏳",
+          "Un souvenir inoubliable 🌸",
+          "Un instant rien qu’à nous 🤍",
+          "Tout ça à la fois 💫"
+        ],
+        messages: [
+          "Exactement… suspendre le temps ⏳💛",
+          "Un souvenir qui restera 🌸✨",
+          "Rien que nous deux 🤍🥹",
+          "Évidemment… tout ça 💫❤️"
+        ]
+      }
     ];
 
+    let currentQuestion = 0;
     let answered = false;
+
+    function loadQuestion() {
+      answered = false;
+      document.getElementById("message").innerHTML = "";
+      document.getElementById("nextBtn").style.display = "none";
+
+      const q = questions[currentQuestion];
+      document.getElementById("question").innerHTML = `<strong>${q.question}</strong>`;
+
+      const choicesDiv = document.getElementById("choices");
+      choicesDiv.innerHTML = "";
+
+      q.choices.forEach((choice, index) => {
+        const btn = document.createElement("button");
+        btn.className = "choice";
+        btn.innerText = choice;
+        btn.onclick = () => answer(index);
+        choicesDiv.appendChild(btn);
+      });
+    }
 
     function answer(index) {
       if (answered) return;
-
-      document.getElementById("message").innerHTML = messages[index];
       answered = true;
 
+      const msg = questions[currentQuestion].messages[index];
+      document.getElementById("message").innerHTML = msg;
+
       setTimeout(() => {
-        document.getElementById("nextLevel").style.display = "inline-block";
-      }, 1200);
+        document.getElementById("nextBtn").style.display = "inline-block";
+      }, 800);
     }
 
-    function goNext() {
-      window.location.href = "niveau3.html";
+    function nextQuestion() {
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        loadQuestion();
+      } else {
+        window.location.href = "niveau3.html";
+      }
     }
+
+    loadQuestion();
   </script>
 </body>
 </html>
