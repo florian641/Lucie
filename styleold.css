@@ -1,0 +1,107 @@
+/* RESET SIMPLE */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* VARIABLES */
+:root {
+  --main-color: #8b0000;
+  --accent-color: #b22222;
+  --bg-color: #fffaf7;
+  --text-color: #4a1c1c;
+  --radius: 16px;
+}
+
+/* BASE */
+body {
+  font-family: "Georgia", "Times New Roman", serif;
+  background: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+/* CONTAINER */
+.container {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  border-radius: var(--radius);
+  padding: 28px 24px 32px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  text-align: center;
+  animation: fadeIn 0.8s ease;
+}
+
+/* TITRES */
+h1 {
+  font-size: 1.6rem;
+  color: var(--main-color);
+  margin-bottom: 16px;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+/* BOUTONS */
+button {
+  width: 100%;
+  padding: 14px 16px;
+  margin-top: 12px;
+  font-size: 1rem;
+  background: var(--main-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+button:hover {
+  background: var(--accent-color);
+  transform: scale(1.02);
+}
+
+/* INPUT */
+input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-top: 12px;
+  border-radius: var(--radius);
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+/* EMOJIS / SYMBOLS */
+.symbols {
+  font-size: 2rem;
+  margin: 24px 0;
+}
+
+/* CLICKABLE TEXT */
+.clickable {
+  margin-top: 24px;
+  font-size: 2.2rem;
+  cursor: pointer;
+  color: var(--main-color);
+}
+
+/* FADE */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

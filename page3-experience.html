@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ce que ça demande</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page dark">
+
+  <div class="container">
+
+    <h1>Ce que ça demande</h1>
+
+    <div class="step">
+      <p>
+        Ce qui arrive<br>
+        aime l’eau.
+      </p>
+      <p class="soft">
+        Pas celle qui tombe.<br>
+        Celle qui enveloppe.
+      </p>
+    </div>
+
+    <button class="btn" onclick="nextStep(1)">Continuer</button>
+
+    <div class="step hidden" id="step1">
+      <p>
+        Ce moment<br>
+        ne se vit pas en courant.
+      </p>
+      <p class="soft">
+        Il demande de prendre son temps<br>
+        et de savourer.
+      </p>
+    </div>
+
+    <button class="btn hidden" id="btn1" onclick="nextStep(2)">Continuer</button>
+
+    <div class="step hidden" id="step2">
+      <p>
+        Il n’y a rien à organiser.<br>
+        Rien à prévoir.
+      </p>
+      <p class="soft">
+        Es-tu prête à lâcher prise ?
+      </p>
+
+      <div class="choice">
+        <button class="choice-btn" onclick="nextStep(3)">🌿 Oui</button>
+        <button class="choice-btn" onclick="nextStep(3)">💭 Je crois</button>
+      </div>
+    </div>
+
+    <div class="step hidden" id="step3">
+      <p>
+        C’est suffisant.
+      </p>
+      <p class="soft">
+        Cela commence un soir.<br>
+        Se prolonge dans la nuit.<br>
+        Et se savoure au réveil.
+      </p>
+
+      <p class="date">
+        6 mai
+      </p>
+
+      <a href="final-lieu.html" class="btn">Découvrir la suite</a>
+    </div>
+
+  </div>
+
+<script>
+  function nextStep(step) {
+    if (step === 1) {
+      document.getElementById('step1').classList.remove('hidden');
+      document.getElementById('btn1').classList.remove('hidden');
+    }
+    if (step === 2) {
+      document.getElementById('step2').classList.remove('hidden');
+    }
+    if (step === 3) {
+      document.getElementById('step3').classList.remove('hidden');
+    }
+  }
+</script>
+
+</body>
+</html>

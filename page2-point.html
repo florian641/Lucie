@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Un point parmi des milliers</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page">
+
+  <div class="container">
+    <h1>Un point parmi des milliers</h1>
+
+    <p class="intro">
+      Sur cette carte,<br>
+      il y a des centaines de rues.<br><br>
+      Des milliers de points possibles.<br><br>
+      Et pourtant…<br>
+      un seul a compté.
+    </p>
+
+    <div class="map-zone">
+      <button class="map-point" data-good="false">📍</button>
+      <button class="map-point" data-good="false">📍</button>
+      <button class="map-point heart" data-good="true">❤️</button>
+    </div>
+
+    <p id="feedback" class="feedback"></p>
+
+    <div id="coords" class="coords hidden">
+      <p class="coords-text">
+        43°28'47.1" N<br>
+        1°33'05.1" W
+      </p>
+      <p class="coords-sub">
+        Ce n’est pas une destination.<br>
+        C’est un souvenir.
+      </p>
+
+      <a href="page3-experience.html" class="btn">Voir ce que ça raconte</a>
+    </div>
+  </div>
+
+<script>
+  const points = document.querySelectorAll('.map-point');
+  const feedback = document.getElementById('feedback');
+  const coords = document.getElementById('coords');
+
+  points.forEach(point => {
+    point.addEventListener('click', () => {
+      if (point.dataset.good === "true") {
+        feedback.textContent = "Ce point-là, tu ne l’as jamais oublié. Moi non plus.";
+        coords.classList.remove('hidden');
+      } else {
+        feedback.textContent = "Pas celui-là. Important… mais pas autant.";
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
