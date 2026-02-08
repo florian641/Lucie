@@ -12,18 +12,25 @@
     <h1>Un point parmi des milliers</h1>
 
     <p class="intro">
-      Sur cette carte,<br>
-      il y a des centaines de rues.<br><br>
-      Des milliers de points possibles.<br><br>
-      Et pourtant…<br>
-      un seul a compté.
-    </p>
+  Sur cette carte 🗺️<br>
+  il y a des centaines de rues.<br><br>
+  Des milliers de points possibles ✨<br><br>
+  Et pourtant…<br>
+  un seul a compté ❤️
+</p>
 
-    <div class="map-zone">
-      <button class="map-point" data-good="false">📍</button>
-      <button class="map-point" data-good="false">📍</button>
-      <button class="map-point heart" data-good="true">❤️</button>
-    </div>
+    <div class="map-container">
+  <iframe
+    src="https://www.google.com/maps?q=43.47975,-1.56142&z=14&output=embed"
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+
+  <button class="map-point fake one">📍</button>
+  <button class="map-point fake two">📍</button>
+  <button class="map-point heart" data-good="true">❤️</button>
+</div>
+
 
     <p id="feedback" class="feedback"></p>
 
@@ -49,7 +56,7 @@
   points.forEach(point => {
     point.addEventListener('click', () => {
       if (point.dataset.good === "true") {
-        feedback.textContent = "Ce point-là, tu ne l’as jamais oublié. Moi non plus.";
+        feedback.textContent = "Ce point-là, tu ne l’as jamais oublié ❤️. Moi non plus.";
         coords.classList.remove('hidden');
       } else {
         feedback.textContent = "Pas celui-là. Important… mais pas autant.";
