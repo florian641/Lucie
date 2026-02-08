@@ -1,81 +1,95 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Un point parmi des milliers</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Test Page 2</title>
+  
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 16px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .reveal {
+      margin-top: 20px;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .heart {
+      font-size: 48px;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+  </style>
 </head>
-<body class="page">
 
-  <div class="container">
-    <h1>Un point parmi des milliers</h1>
+<body>
 
-<p class="intro">
-  Sur une carte, il existe des milliers de façons d’écrire un lieu 🗺️<br><br>
-  Degrés, lettres, chiffres…<br>
-  Peu importe la forme.<br><br>
-  Ici, écris simplement ce que tu vois.<br>
-  Je ne garderai que l’essentiel ❤️
-</p>
+  <h2>Niveau 2 — Test</h2>
 
+  <p>
+    Écris n’importe quoi.<br>
+    Je ne garde que les chiffres.
+  </p>
 
-    <div class="map-container">
-  <iframe
-    src="https://www.google.com/maps?q=43.47975,-1.56142&z=14&output=embed"
-    loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade">
-  </iframe>
+  <input id="coordsInput" placeholder="Ex : 43°47’ W156">
 
-  <button class="map-point fake one">📍</button>
-  <button class="map-point fake two">📍</button>
-  <button class="map-point heart" data-good="true">❤️</button>
-</div>
+  <button onclick="checkCoords()">Voir ce que ça raconte</button>
 
-
-    <p id="feedback" class="feedback"></p>
-
-    <div id="coords" class="coords hidden">
-      <p class="coords-text">
-        43°28'47.1" N<br>
-        1°33'05.1" W
-      </p>
-      <p class="coords-sub">
-        Ce n’est pas une destination.<br>
-        C’est un souvenir.
-      </p>
-
-      <a href="page3-experience.html" class="btn">Voir ce que ça raconte</a>
-    </div>
+  <div id="mapReveal" class="reveal hidden">
+    <div class="heart">❤️</div>
+    <p>
+      Ce point-là, tu ne l’as jamais oublié.<br>
+      Moi non plus.
+    </p>
   </div>
 
-<script>
-  function extractDigits(str) {
-    // Récupère uniquement les groupes de chiffres
-    return str.match(/\d+/g) || [];
-  }
-
-  function checkCoords() {
-    const input = document.getElementById('coordsInput').value;
-    const digits = extractDigits(input).join("");
-
-    // On vérifie juste que les chiffres clés sont présents
-    const has43 = digits.includes("43");
-    const has47 = digits.includes("47");
-    const has156 = digits.includes("156");
-
-    if (has43 && has47 && has156) {
-      document.getElementById('mapReveal').classList.remove('hidden');
-    } else {
-      alert("Il manque encore quelques chiffres… regarde mieux 🔍");
+  <script>
+    function extractDigits(str) {
+      return str.match(/\d+/g) || [];
     }
-  }
 
-  function goNext() {
-    window.location.href = "page3-experience.html";
-  }
-</script>
+    function checkCoords() {
+      const input = document.getElementById('coordsInput').value;
+      const digits = extractDigits(input).join("");
 
+      const has43 = digits.includes("43");
+      const has47 = digits.includes("47");
+      const has156 = digits.includes("156");
+
+      if (has43 && has47 && has156) {
+        document.getElementById('mapReveal').classList.remove('hidden');
+      } else {
+        alert("Il manque encore quelques chiffres…");
+      }
+    }
+  </script>
 
 </body>
 </html>
