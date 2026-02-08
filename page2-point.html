@@ -11,13 +11,14 @@
   <div class="container">
     <h1>Un point parmi des milliers</h1>
 
-    <p class="intro">
-  Sur cette carte 🗺️<br>
-  il y a des centaines de rues.<br><br>
-  Des milliers de points possibles ✨<br><br>
-  Et pourtant…<br>
-  un seul a compté ❤️
+<p class="intro">
+  Sur une carte, il existe des milliers de façons d’écrire un lieu 🗺️<br><br>
+  Degrés, lettres, chiffres…<br>
+  Peu importe la forme.<br><br>
+  Ici, écris simplement ce que tu vois.<br>
+  Je ne garderai que l’essentiel ❤️
 </p>
+
 
     <div class="map-container">
   <iframe
@@ -49,21 +50,32 @@
   </div>
 
 <script>
-  const points = document.querySelectorAll('.map-point');
-  const feedback = document.getElementById('feedback');
-  const coords = document.getElementById('coords');
+  function extractDigits(str) {
+    // Récupère uniquement les groupes de chiffres
+    return str.match(/\d+/g) || [];
+  }
 
-  points.forEach(point => {
-    point.addEventListener('click', () => {
-      if (point.dataset.good === "true") {
-        feedback.textContent = "Ce point-là, tu ne l’as jamais oublié ❤️. Moi non plus.";
-        coords.classList.remove('hidden');
-      } else {
-        feedback.textContent = "Pas celui-là. Important… mais pas autant.";
-      }
-    });
-  });
+  function checkCoords() {
+    const input = document.getElementById('coordsInput').value;
+    const digits = extractDigits(input).join("");
+
+    // On vérifie juste que les chiffres clés sont présents
+    const has43 = digits.includes("43");
+    const has47 = digits.includes("47");
+    const has156 = digits.includes("156");
+
+    if (has43 && has47 && has156) {
+      document.getElementById('mapReveal').classList.remove('hidden');
+    } else {
+      alert("Il manque encore quelques chiffres… regarde mieux 🔍");
+    }
+  }
+
+  function goNext() {
+    window.location.href = "page3-experience.html";
+  }
 </script>
+
 
 </body>
 </html>

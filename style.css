@@ -273,3 +273,19 @@ body.dark .btn {
   left: 45%;
   animation: pulse 2s infinite;
 }
+
+.page-3 {
+  color: #222;
+}
+
+.page-3 h2,
+.page-3 p {
+  color: #222;
+}
+
+.page-3 .step {
+  background: #f8f8f8;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
