@@ -9,7 +9,7 @@
 <body class="page-2">
 
   <section class="card">
-    <h2>📍 Niveau 2 — Un souvenir</h2>
+    <h2>📍 Niveau 3 — Un souvenir</h2>
 
     <p class="intro">
       Sur une carte, il existe des milliers de points 🗺️<br><br>
@@ -19,7 +19,7 @@
 
     <p class="memory-hint">
       Écris ce que tu veux.<br>
-      Je ne garderai que les chiffres.
+      Je ne garderai que les chiffres. Mais ces chiffres doivent être justes pour que tu puisses continuer l’aventure.
     </p>
 
     <input
@@ -30,23 +30,23 @@
     />
 
     <button class="primary-btn" onclick="checkCoords()">
-      Voir ce que ça raconte ✨
+      Voir la suite ❤️
     </button>
 
     <div id="mapReveal" class="map-reveal hidden">
       <!-- Image statique de la carte -->
-      <img src="assets/carte-biarritz.png" alt="Carte souvenir">
+      <img src="carte-biarritz.png" alt="Carte souvenir">
 
       <div class="heart-overlay">❤️</div>
 
       <p class="memory-text">
-        Ce point-là, tu ne l’as jamais oublié.<br>
+        Ce point-là, tu ne l’as pas oublié.<br>
         Moi non plus.<br>
         Et je ne l’oublierai jamais.
       </p>
 
       <button class="primary-btn" onclick="goNext()">
-        Voir le futur 🔮
+        Voir ce qui t'attends ❤️
       </button>
     </div>
   </section>
@@ -63,9 +63,9 @@
     const input = document.getElementById('coordsInput').value;
     const digits = extractDigits(input).join("");
 
-    const has43 = digits.includes("43");
-    const has47 = digits.includes("47");
-    const has156 = digits.includes("156");
+    const has43 = digits.includes("4328");
+    const has47 = digits.includes("47113");
+    const has156 = digits.includes("3051");
 
     if (has43 && has47 && has156) {
       document.getElementById('mapReveal').classList.remove('hidden');
