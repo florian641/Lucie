@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ce qui attend</title>
+
+  <style>
+    :root {
+      --bg: #0e0e11;
+      --card: #16161d;
+      --accent: #ff5c8a;
+      --text: #f2f2f2;
+      --muted: #9a9a9a;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0e0e11, #141420);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    p.intro {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 32px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+      filter: blur(6px);
+      opacity: 0.4;
+      transition: all 0.6s ease;
+    }
+
+    .card.unlocked {
+      filter: blur(0);
+      opacity: 1;
+      box-shadow: 0 0 24px rgba(255,92,138,0.25);
+    }
+
+    .card::after {
+      content: "🔒";
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 1.2rem;
+    }
+
+    .card.unlocked::after {
+      content: "💗";
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+      color: var(--muted);
+    }
+
+    .value {
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .input-zone {
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      max-width: 320px;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      font-size: 1rem;
+      margin-bottom: 12px;
+    }
+
+    button {
+      background: var(--accent);
+      border: none;
+      color: white;
+      padding: 14px 24px;
+      border-radius: 999px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .hint {
+      margin-top: 12px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    @media (min-width: 600px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Ce qui est déjà là</h1>
+  <p class="intro">
+    Ces cartes ne parlent pas d’un endroit.<br>
+    Elles parlent d’un moment.
+  </p>
+
+  <div class="cards">
+    <div class="card" data-key="egypte">
+      <div class="row"><span>Nom du passager</span><span>—</span></div>
+      <div class="value">Inconnu</div>
+      <div class="row"><span>Durée</span><span>∞</span></div>
+      <div class="row"><span>Porte</span><span>E</span></div>
+    </div>
+
+    <div class="card" data-key="tunisie">
+      <div class="row"><span>Zone</span><span>Nord</span></div>
+      <div class="value">Silencieuse</div>
+      <div class="row"><span>Temps requis</span><span>Aucun</span></div>
+    </div>
+
+    <div class="card" data-key="crete">
+      <div class="row"><span>État</span><span>Lent</span></div>
+      <div class="value">Solaire</div>
+      <div class="row"><span>Condition</span><span>Lâcher prise</span></div>
+    </div>
+
+    <div class="card" data-key="pouilles">
+      <div class="row"><span>Accès</span><span>Indirect</span></div>
+      <div class="value">Authentique</div>
+      <div class="row"><span>Durée estimée</span><span>Inutile</span></div>
+    </div>
+
+    <div class="card" data-key="sicile">
+      <div class="row"><span>Température</span><span>Douce</span></div>
+      <div class="value">Intense</div>
+      <div class="row"><span>Zone</span><span>S</span></div>
+    </div>
+
+    <div class="card" data-key="split">
+      <div class="row"><span>Orientation</span><span>Est</span></div>
+      <div class="value">Minérale</div>
+      <div class="row"><span>Moment</span><span>Présent</span></div>
+    </div>
+  </div>
+
+  <div class="input-zone">
+    <input type="text" id="answer" placeholder="Entre un mot…"/>
+    <br/>
+    <button onclick="check()">Essayer</button>
+    <div class="hint">
+      Rien ne presse. Certaines choses attendent le bon jour.
+    </div>
+  </div>
+
+  <script>
+    const unlockDate = new Date("2026-02-20");
+    const today = new Date();
+
+    function normalize(str) {
+      return str.toLowerCase().normalize("NFD").replace(/[^a-z]/g, "");
+    }
+
+    function check() {
+      if (today < unlockDate) {
+        alert("Ce n’est pas encore le moment 🤍");
+        return;
+      }
+
+      const value = normalize(document.getElementById("answer").value);
+      document.querySelectorAll(".card").forEach(card => {
+        if (card.dataset.key === value) {
+          card.classList.add("unlocked");
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
