@@ -434,10 +434,10 @@ body.dark .btn {
 /* Coeur centré sur la carte */
 .page-2 .heart-marker {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 28%;
+  left: 43%;
   transform: translate(-50%, -50%);
-  font-size: 42px;
+  font-size: 22px;
   pointer-events: none;
   animation: pulse 1.8s infinite;
 }
