@@ -414,3 +414,30 @@ body.dark .btn {
 .hidden {
   display: none;
 }
+
+
+/* Conteneur de la carte */
+.page-2 .map-container {
+  position: relative;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Image de la carte */
+.page-2 .map-container img {
+  width: 100%;
+  display: block;
+  border-radius: 16px;
+}
+
+/* Coeur centré sur la carte */
+.page-2 .heart-marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 42px;
+  pointer-events: none;
+  animation: pulse 1.8s infinite;
+}
