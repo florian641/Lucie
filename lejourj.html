@@ -131,10 +131,20 @@
     Ces cartes ne parlent pas d’un endroit parlent d’un moment.
   </p>
 
+
 <body>
 
 <h1>Quelques cartes ❤</h1>
 
+ <div class="input-zone">
+    <input type="text" id="answer" placeholder="Entre un mot…"/>
+    <br/>
+    <button onclick="check()">Essayer</button>
+    <div class="hint">
+      Si tu ne trouve pas, rien ne presse. Certaines choses attendent le bon jour.
+    </div>
+  </div>
+  
   <!-- 1 -->
   <div class="cards">
     <a href="rome-palerme.html" class="card" data-key="Sicile">
@@ -218,14 +228,6 @@
     </a>
   </div>
 
-  <div class="input-zone">
-    <input type="text" id="answer" placeholder="Entre un mot…"/>
-    <br/>
-    <button onclick="check()">Essayer</button>
-    <div class="hint">
-      Si tu ne trouve pas, rien ne presse. Certaines choses attendent le bon jour.
-    </div>
-  </div>
 
   <script>
     const unlockDate = new Date("2026-02-10");
