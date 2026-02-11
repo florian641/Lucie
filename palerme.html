@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Boarding Pass</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+/* ===== GLOBAL ===== */
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: linear-gradient(180deg, #f5f6fa, #ffffff);
+  color: #222;
+}
+
+/* ===== BOARDING PASS ===== */
+.boarding-pass {
+  max-width: 380px;
+  margin: 40px auto 20px;
+  background: white;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  position: relative;
+}
+
+.bp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bp-header h2 {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.bp-heart {
+  font-size: 22px;
+}
+
+.bp-route {
+  display: flex;
+  justify-content: space-between;
+  margin: 24px 0;
+  text-align: center;
+}
+
+.bp-route div {
+  flex: 1;
+}
+
+.bp-route strong {
+  display: block;
+  font-size: 20px;
+}
+
+.bp-info {
+  font-size: 13px;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+.bp-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+/* ===== CARROUSEL ===== */
+.gallery-carousel {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 20px;
+  scroll-snap-type: x mandatory;
+}
+
+.gallery-carousel img,
+.gallery-carousel video {
+  height: 200px;
+  border-radius: 18px;
+  cursor: pointer;
+  object-fit: cover;
+  scroll-snap-align: start;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.gallery-carousel img:hover,
+.gallery-carousel video:hover {
+  transform: scale(1.05);
+}
+
+/* ===== MODAL ===== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 18px;
+}
+
+.close-modal {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ===== BOARDING PASS ===== -->
+<div class="boarding-pass">
+  <div class="bp-header">
+    <h2>BOARDING PASS</h2>
+    <div class="bp-heart">❤️</div>
+  </div>
+
+  <div class="bp-route">
+    <div>
+      <strong>BOD</strong>
+      <span>Bordeaux</span>
+    </div>
+    <div>✈️</div>
+    <div>
+      <strong>PMO</strong>
+      <span>Palerme</span>
+    </div>
+  </div>
+
+  <div class="bp-info">
+    Nom du passager : <strong>Lucie</strong><br>
+    Date : <strong>20.05</strong><br>
+    Heure : <strong>09:55</strong><br>
+    Porte : <strong>Inconnue</strong><br>
+    Durée : <strong>7 nuits</strong><br>
+    Température eau : <strong>~20°C</strong>
+  </div>
+
+  <div class="bp-footer">
+    Ce billet n’indique pas une destination.<br>
+    Il indique une intention.
+  </div>
+</div>
+
+<!-- ===== CARROUSEL ===== -->
+<div class="gallery-carousel">
+  <img src="images/palerme1.png" onclick="openMedia('img','images/palerme1.png')">
+  <img src="images/palerme2.png" onclick="openMedia('img','images/palerme2.png')">
+
+  <video src="videos/palerme1.mp4" muted loop onclick="openMedia('video','videos/palerme1.mp4')"></video>
+  <video src="videos/palerme2.mp4" muted loop onclick="openMedia('video','videos/palerme2.mp4')"></video>
+</div>
+
+<!-- ===== MODAL ===== -->
+<div id="modal" class="modal" onclick="closeModal()">
+  <span class="close-modal">← retour</span>
+  <img id="modalImg" class="modal-content">
+  <video id="modalVideo" class="modal-content" controls></video>
+</div>
+
+<script>
+function openMedia(type, src) {
+  const modal = document.getElementById("modal");
+  const img = document.getElementById("modalImg");
+  const video = document.getElementById("modalVideo");
+
+  modal.style.display = "flex";
+
+  if (type === "img") {
+    img.src = src;
+    img.style.display = "block";
+    video.style.display = "none";
+  } else {
+    video.src = src;
+    video.style.display = "block";
+    img.style.display = "none";
+    video.play();
+  }
+}
+
+function closeModal() {
+  const modal = document.getElementById("modal");
+  const video = document.getElementById("modalVideo");
+
+  modal.style.display = "none";
+  video.pause();
+}
+</script>
+
+</body>
+</html>
