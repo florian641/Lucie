@@ -132,8 +132,6 @@
   </p>
 
 
-<body>
-
 <h1>Quelques cartes ❤</h1>
 <br/><br/><br/><br/>
  <div class="input-zone">
@@ -205,7 +203,7 @@
 
   <!-- 6 -->
 
-    <a href="egypte.html"  class="card" data-key="egypte">
+    <a href="egypte.html"  class="card" data-key="egypt">
     <div class="value">Bordeaux → Hurghada ❤</div>
     <div class="row"><span>Départ</span><span>26.05 • 10:35</span></div>
     <div class="row"><span>Retour</span><span>02.06 • 17:20</span></div>
@@ -217,7 +215,7 @@
 
   <!-- 7 -->
 
-    <a href="tunisie.html"  class="card" data-key="tunisie">
+    <a href="tunisie.html"  class="card" data-key="tunisia">
     <div class="value">Toulouse → Hammamet ❤</div>
     <div class="row"><span>Départ</span><span>19.05 • 18:55</span></div>
     <div class="row"><span>Retour</span><span>26.05 • 18:00</span></div>
@@ -230,7 +228,7 @@
 
 
   <script>
-    const unlockDate = new Date("2026-02-14");
+    const unlockDate = new Date("2026-02-11");
     const today = new Date();
 
     function normalize(str) {
@@ -238,18 +236,26 @@
     }
 
     function check() {
-      if (today < unlockDate) {
-        alert("Ce n’est pas encore le moment 🤍");
-        return;
-      }
+  if (today < unlockDate) {
+    alert("Ce n’est pas encore le moment 🤍");
+    return;
+  }
 
-      const value = normalize(document.getElementById("answer").value);
-      document.querySelectorAll(".card").forEach(card => {
-        if (card.dataset.key === value) {
-          card.classList.add("unlocked");
-        }
-      });
+  const value = normalize(document.getElementById("answer").value);
+  let found = false;
+
+  document.querySelectorAll(".card").forEach(card => {
+    if (normalize(card.dataset.key).includes(value)) {
+      card.classList.add("unlocked");
+      found = true;
     }
+  });
+
+  if (!found) {
+    alert("Ce mot ne débloque encore rien… 💭");
+  }
+}
+
   </script>
 
 </body>
