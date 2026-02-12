@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Boarding Pass</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+/* ===== GLOBAL ===== */
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: linear-gradient(180deg, #f5f6fa, #ffffff);
+  color: #222;
+}
+
+/* ===== BOARDING PASS ===== */
+.boarding-pass {
+  max-width: 380px;
+  margin: 40px auto 20px;
+  background: white;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  position: relative;
+}
+
+.bp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bp-header h2 {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.bp-heart {
+  font-size: 22px;
+}
+
+.bp-route {
+  display: flex;
+  justify-content: space-between;
+  margin: 24px 0;
+  text-align: center;
+}
+
+.bp-route div {
+  flex: 1;
+}
+
+.bp-route strong {
+  display: block;
+  font-size: 20px;
+}
+
+.bp-info {
+  font-size: 13px;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+.bp-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+/* ===== CARROUSEL ===== */
+.gallery-carousel {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 20px;
+  scroll-snap-type: x mandatory;
+}
+
+.gallery-carousel img,
+.gallery-carousel video {
+  height: 200px;
+  border-radius: 18px;
+  cursor: pointer;
+  object-fit: cover;
+  scroll-snap-align: start;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.gallery-carousel img:hover,
+.gallery-carousel video:hover {
+  transform: scale(1.05);
+}
+
+/* ===== MODAL ===== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 18px;
+}
+
+.close-modal {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ===== BOARDING PASS ===== -->
+<div class="boarding-pass">
+  <div class="bp-header">
+    <h2>BOARDING PASS</h2>
+    <div class="bp-heart">❤️</div>
+  </div>
+
+  <div class="bp-route">
+    <div>
+      <strong>BOD</strong>
+      <span>Bordeaux</span>
+    </div>
+    <div>✈️</div>
+    <div>
+      <strong>PMO</strong>
+      <span>Les Pouilles en passant par ROMA ou AMOR</span>
+    </div>
+  </div>
+
+  <div class="bp-info">
+    Nom du passager : <strong>Lucie</strong><br>
+    Date : <strong>19.05</strong><br>
+    Heure : <strong>08:50</strong><br>
+    Etape : <strong> Rome → Bari • 21/05 • 19h25</strong><br>
+    Escale : <strong> Barcelone • Nuit (27/05 • 22h35)</strong><br>
+    Porte : <strong>Inconnue</strong><br>
+    Durée : <strong>9 nuits</strong><br>
+    Température eau : <strong>~19°C</strong>
+  </div>
+
+  <div class="bp-footer">
+    Ce billet n’indique pas une destination.<br>
+    Il indique une intention.
+  </div>
+<br><br>
+  <!-- Bouton de redirection -->
+<button 
+onclick="window.open('https://generationvoyage.fr/specialites-culinaires-pouilles/', '_blank');" 
+    style="
+        padding: 10px 20px; 
+        background-color: #4CAF50; 
+        color: white; 
+        border: none; 
+        border-radius: 5px; 
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+    "
+    onmouseover="this.style.backgroundColor='#45a049';"
+    onmouseout="this.style.backgroundColor='#4CAF50';"
+>
+    La nourriture aux Pouilles 😋
+</button>
+
+</div>
+
+<!-- ===== CARROUSEL ===== -->
+<div class="gallery-carousel">
+  <img src="images/pouilles1.jpg" onclick="openMedia('img','images/pouilles1.jpg')">
+  <img src="images/pouilles2.jpg" onclick="openMedia('img','images/pouilles2.jpg')">
+    <img src="images/pouilles3.jpg" onclick="openMedia('img','images/pouilles3.jpg')">
+  <img src="images/pouilles4.jpg" onclick="openMedia('img','images/pouilles4.jpg')">  
+  <img src="images/pouilles5.jpg" onclick="openMedia('img','images/pouilles5.jpg')">
+  <img src="images/pouilles6.jpg" onclick="openMedia('img','images/pouilles6.jpg')">
+    <img src="images/pouilles7.jpg" onclick="openMedia('img','images/pouilles7.jpg')">
+</div>
+
+<!-- ===== MODAL ===== -->
+<div id="modal" class="modal" onclick="closeModal()">
+  <span class="close-modal">← retour</span>
+  <img id="modalImg" class="modal-content">
+  <video id="modalVideo" class="modal-content" controls></video>
+</div>
+
+<script>
+function openMedia(type, src) {
+  const modal = document.getElementById("modal");
+  const img = document.getElementById("modalImg");
+  const video = document.getElementById("modalVideo");
+
+  modal.style.display = "flex";
+
+  if (type === "img") {
+    img.src = src;
+    img.style.display = "block";
+    video.style.display = "none";
+  } else {
+    video.src = src;
+    video.style.display = "block";
+    img.style.display = "none";
+    video.play();
+  }
+}
+
+function closeModal() {
+  const modal = document.getElementById("modal");
+  const video = document.getElementById("modalVideo");
+
+  modal.style.display = "none";
+  video.pause();
+}
+</script>
+
+</body>
+</html>
