@@ -125,6 +125,25 @@ opacity: 0.25;
         grid-template-columns: repeat(2, 1fr);
       }
     }
+    @keyframes unlockPop {
+  0% {
+    transform: scale(0.96);
+    box-shadow: 0 0 0 rgba(255,92,138,0);
+  }
+  60% {
+    transform: scale(1.03);
+    box-shadow: 0 0 40px rgba(255,92,138,0.45);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 24px rgba(255,92,138,0.25);
+  }
+}
+
+.card.unlocked {
+  animation: unlockPop 0.6s ease;
+}
+
   </style>
 </head>
 
@@ -248,28 +267,45 @@ function check() {
   }
 
   const value = normalize(document.getElementById("answer").value.trim());
-
   if (!value) {
-    alert("Veuillez entrer un mot valide 💭");
+    alert("Entre un mot 🤍");
     return;
   }
 
-  let found = false;
+  let unlockedAny = false;
+  let unlockedCards = JSON.parse(localStorage.getItem("unlockedCards")) || [];
 
   document.querySelectorAll(".card").forEach(card => {
-    // On normalise le mot clé de la carte
     const key = normalize(card.dataset.key);
 
-    if (value === key) {  // comparaison stricte
+    if (value === key && !unlockedCards.includes(key)) {
       card.classList.add("unlocked");
-      found = true;
+      unlockedCards.push(key);
+      unlockedAny = true;
     }
   });
 
-  if (!found) {
+  localStorage.setItem("unlockedCards", JSON.stringify(unlockedCards));
+if (navigator.vibrate) {
+  navigator.vibrate(80);
+}
+
+  if (!unlockedAny) {
     alert("Ce mot ne débloque encore rien… 💭");
   }
 }
+
+window.addEventListener("load", () => {
+  const unlockedCards = JSON.parse(localStorage.getItem("unlockedCards")) || [];
+
+  document.querySelectorAll(".card").forEach(card => {
+    const key = normalize(card.dataset.key);
+    if (unlockedCards.includes(key)) {
+      card.classList.add("unlocked");
+    }
+  });
+});
+
 </script>
 
 
