@@ -49,17 +49,20 @@
   padding: 16px;
   position: relative;
   overflow: hidden;
-  opacity: 0.25;
-  transition: opacity 0.4s ease;
+
+  filter: blur(14px);
+  opacity: 0.35;
+
   pointer-events: none;
+  transition: all 0.6s ease;
 }
+
 
 .card::before {
   content: "";
   position: absolute;
   inset: 0;
-  backdrop-filter: blur(18px);
-  background: rgba(0,0,0,0.35);
+  background: rgba(0, 0, 0, 0.55);
   z-index: 1;
 }
 
@@ -68,15 +71,18 @@
   z-index: 2;
 }
 
-
- .card.unlocked {
+.card.unlocked {
+  filter: blur(0);
   opacity: 1;
   pointer-events: auto;
-animation: unlockPop 0.6s cubic-bezier(.2,1.4,.4,1);
+  box-shadow: 0 0 24px rgba(255,92,138,0.25);
+  animation: unlockPop 0.6s cubic-bezier(.2,1.4,.4,1);
+
 }
 
 .card.unlocked::before {
-  backdrop-filter: blur(0);
+  display: none;
+    backdrop-filter: blur(0);
   background: transparent;
 }
 
