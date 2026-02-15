@@ -163,6 +163,67 @@
   }
 }
 
+.choice-popup {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,92,138,0.25), rgba(14,14,17,0.97));
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.choice-box {
+  background: #16161d;
+  border-radius: 24px;
+  padding: 36px 28px;
+  max-width: 420px;
+  text-align: center;
+  box-shadow:
+    0 0 60px rgba(255,92,138,0.45),
+    0 0 120px rgba(255,92,138,0.25);
+  animation: explodeIn 0.9s cubic-bezier(.19,1,.22,1);
+}
+
+.choice-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.choice-btn {
+  margin-top: 28px;
+  background: linear-gradient(135deg, #ff5c8a, #ff85a2);
+  border: none;
+  color: white;
+  padding: 14px 32px;
+  border-radius: 999px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255,92,138,0.6);
+  transition: transform 0.2s ease;
+}
+
+.choice-btn:hover {
+  transform: scale(1.05);
+}
+
+@keyframes explodeIn {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+    filter: blur(12px);
+  }
+  60% {
+    transform: scale(1.05);
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
 
   </style>
 </head>
@@ -294,6 +355,7 @@ function check() {
 
   let unlockedAny = false;
   let unlockedCards = JSON.parse(localStorage.getItem("unlockedCards")) || [];
+  
 
   document.querySelectorAll(".card").forEach(card => {
     const key = normalize(card.dataset.key);
@@ -306,6 +368,8 @@ function check() {
   });
 
   localStorage.setItem("unlockedCards", JSON.stringify(unlockedCards));
+  checkFinal();
+
 if (unlockedAny && navigator.vibrate) {
   navigator.vibrate([120, 60, 120]);
 }
@@ -324,10 +388,49 @@ window.addEventListener("load", () => {
       card.classList.add("unlocked");
     }
   });
+
+  checkFinal();
 });
+
+
+function showChoicePopup() {
+  if (localStorage.getItem("choiceShown")) return;
+  document.getElementById("choicePopup").style.display = "flex";
+  localStorage.setItem("choiceShown", "true");
+
+  if (navigator.vibrate) {
+    navigator.vibrate([60, 40, 120]);
+  }
+}
+
+function closeChoice() {
+  document.getElementById("choicePopup").style.display = "none";
+}
+
+function checkFinal() {
+  const totalCards = document.querySelectorAll(".card").length;
+  const unlockedCards = JSON.parse(localStorage.getItem("unlockedCards")) || [];
+
+  if (unlockedCards.length === totalCards) {
+    showChoicePopup();
+  }
+}
+
 
 </script>
 
+<div id="choicePopup" class="choice-popup">
+  <div class="choice-box">
+    <p class="choice-text">
+      <strong>Il ne te reste plus qu’à choisir.</strong><br><br>
+      Moi, tant que je suis avec toi,<br>
+      je suis heureux.<br><br>
+      <strong>Plus proche de toi, je ne peux pas être.</strong><br><br>
+      Quel sera ton choix ?
+    </p>
 
+    <button class="choice-btn" onclick="closeChoice()">Choisir</button>
+  </div>
+</div>
 </body>
 </html>
