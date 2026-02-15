@@ -306,8 +306,8 @@ function check() {
   });
 
   localStorage.setItem("unlockedCards", JSON.stringify(unlockedCards));
-if (navigator.vibrate) {
-  navigator.vibrate(80);
+if (unlockedAny && navigator.vibrate) {
+  navigator.vibrate([120, 60, 120]);
 }
 
   if (!unlockedAny) {
