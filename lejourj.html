@@ -49,14 +49,18 @@
       padding: 16px;
       position: relative;
       overflow: hidden;
-      filter: blur(6px);
-      opacity: 0.4;
+      filter: blur(18px);
+opacity: 0.25;
       transition: all 0.6s ease;
+        pointer-events: none;
+
     }
 
     .card.unlocked {
       filter: blur(0);
       opacity: 1;
+        pointer-events: auto;
+
       box-shadow: 0 0 24px rgba(255,92,138,0.25);
     }
 
