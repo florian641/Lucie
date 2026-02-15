@@ -223,6 +223,25 @@
   }
 }
 
+.heart {
+  position: fixed;
+  font-size: 16px;
+  pointer-events: none;
+  animation: heartFloat 1.2s ease-out forwards;
+  z-index: 9999;
+}
+
+@keyframes heartFloat {
+  0% {
+    transform: translate(0, 0) scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) scale(1.4);
+    opacity: 0;
+  }
+}
+
 
 
   </style>
@@ -410,11 +429,53 @@ function closeChoice() {
 function checkFinal() {
   const totalCards = document.querySelectorAll(".card").length;
   const unlockedCards = JSON.parse(localStorage.getItem("unlockedCards")) || [];
+  const alreadyShown = localStorage.getItem("finalShown");
 
-  if (unlockedCards.length === totalCards) {
+  if (unlockedCards.length === totalCards && !alreadyShown) {
+    localStorage.setItem("finalShown", "true");
+    explodeHearts();
     showChoicePopup();
   }
 }
+
+
+function explodeHearts() {
+  const colors = ["💗", "💖", "💘", "❤️"];
+  const count = 36;
+
+  for (let i = 0; i < count; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = colors[Math.floor(Math.random() * colors.length)];
+
+    const x = (Math.random() - 0.5) * 200 + "px";
+    const y = (Math.random() - 0.5) * 200 + "px";
+
+    heart.style.setProperty("--x", x);
+    heart.style.setProperty("--y", y);
+
+    heart.style.left = "50%";
+    heart.style.top = "50%";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 1200);
+  }
+}
+
+function resetAll() {
+  if (!confirm("Tout recommencer ? 🤍")) return;
+
+  localStorage.removeItem("unlockedCards");
+  localStorage.removeItem("finalShown");
+
+  document.querySelectorAll(".card").forEach(card => {
+    card.classList.remove("unlocked");
+  });
+
+  alert("Tout est redevenu flou ✨");
+}
+
 
 
 </script>
@@ -431,6 +492,20 @@ function checkFinal() {
 
     <button class="choice-btn" onclick="closeChoice()">Choisir</button>
   </div>
+
+  <div style="text-align:center; margin-top:40px;">
+  <button onclick="resetAll()" style="
+    background: transparent;
+    color: #9a9a9a;
+    border: 1px solid #333;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    cursor: pointer;
+  ">
+    Réinitialiser les cartes
+  </button>
+</div>
 </div>
 </body>
 </html>
