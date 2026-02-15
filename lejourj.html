@@ -374,29 +374,36 @@ function check() {
 
   let unlockedAny = false;
   let unlockedCards = JSON.parse(localStorage.getItem("unlockedCards")) || [];
-  
 
   document.querySelectorAll(".card").forEach(card => {
     const key = normalize(card.dataset.key);
 
-    if (value === key && !unlockedCards.includes(key)) {
-      card.classList.add("unlocked");
-      unlockedCards.push(key);
-      unlockedAny = true;
+    // 👉 ON DÉBLOQUE TOUTES LES CARTES QUI MATCHENT
+    if (value === key) {
+      if (!card.classList.contains("unlocked")) {
+        card.classList.add("unlocked");
+        unlockedAny = true;
+      }
     }
   });
 
-  localStorage.setItem("unlockedCards", JSON.stringify(unlockedCards));
-  checkFinal();
+  // 👉 ON STOCKE LE MOT UNE SEULE FOIS
+  if (unlockedAny && !unlockedCards.includes(value)) {
+    unlockedCards.push(value);
+    localStorage.setItem("unlockedCards", JSON.stringify(unlockedCards));
 
-if (unlockedAny && navigator.vibrate) {
-  navigator.vibrate([120, 60, 120]);
-}
+    if (navigator.vibrate) {
+      navigator.vibrate(80);
+    }
+
+    checkFinal();
+  }
 
   if (!unlockedAny) {
     alert("Ce mot ne débloque encore rien… 💭");
   }
 }
+
 
 window.addEventListener("load", () => {
   const unlockedCards = JSON.parse(localStorage.getItem("unlockedCards")) || [];
